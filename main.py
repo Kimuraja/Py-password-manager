@@ -7,7 +7,7 @@ import pyperclip
 def generate_password():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '?', '-', '_', '=', '{', '}', '[', ']']
 
     let = [choice(letters) for _ in range(randint(8, 10))]
     sym = [choice(symbols) for _ in range(randint(2, 4))]
@@ -52,7 +52,7 @@ canvas.grid(column=1, row=0)
 web_txt = Label(text="Website:")
 web_txt.grid(column=0, row=1)
 
-inp_web = Entry(width=35)
+inp_web = Entry(width=38)
 inp_web.grid(row=1, column=1, columnspan=2)
 inp_web.focus()
 
@@ -60,7 +60,7 @@ inp_web.focus()
 user_txt = Label(text="Email/Username:")
 user_txt.grid(column=0, row=2)
 
-inp_user = Entry(width=35)
+inp_user = Entry(width=38)
 inp_user.grid(row=2, column=1, columnspan=2)
 inp_user.insert(END, "your.email@gmail.com")
 
