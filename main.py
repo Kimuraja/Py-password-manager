@@ -2,12 +2,17 @@ from tkinter import *
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+def save_web():
+    with open("data.txt", mode='a') as file:
+        web = inp_web.get()
+        usr = inp_user.get()
+        psw = inp_psw.get()
+        file.write(f"{web} | {usr} | {psw}\n")
 
 # ---------------------------- UI SETUP ------------------------------- #
 window = Tk()
 window.title("Password")
 window.config(pady=50, padx=50)
-
 
 canvas = Canvas(height=200, width=200)
 img = PhotoImage(file="logo.png")
@@ -39,7 +44,11 @@ psw_button = Button(text="Generate Password")
 psw_button.grid(row=3, column=2)
 
 # ----------Add Button----------#
-add_button = Button(text="Add", width=36)
+add_button = Button(text="Add", width=36, command=save_web)
 add_button.grid(row=4, column=1, columnspan=2)
+
+
+
+
 
 mainloop()
