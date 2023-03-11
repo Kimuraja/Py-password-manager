@@ -1,6 +1,6 @@
 # Python Password Manager
 
-Make sure that the "data.json" file does not exist in your folder right after downloading it, as the application will create it automatically. If you have such a file, DELETE IT, as it is causing the application to malfunction.
+Make sure that the "data.<a href="https://www.w3schools.com/python/python_json.asp">json</a>" file does not exist in your folder right after downloading it, as the application will create it automatically. If you have such a file, DELETE IT, as it is causing the application to malfunction.
 
 #
 
@@ -17,13 +17,13 @@ Make sure that the "data.json" file does not exist in your folder right after do
 
 <h2>🧰 Application instruction</h2>
 <p>
-  Website input saves the name of the website.
+  <b>Website</b> -> This input saves the name of the website.
   Search button looks up the name of the website in 'data.json'.
 
-  Email/Username input saves your email/username/login for the chosen website.
+  <b>Email/Username</b> -> This input saves your email/username/login for the chosen website.
 
-  Password input saves your password.
+  <b>Password</b> -> This input saves your password.
   Generate Password button saves your password in 'data.json' and also copies the generated password to the clipboard.
 
-  Add button adds every input to the 'data.json' file.
+  <b>Add button</b> -> This button adds every input to the 'data.json' file.
 </p>
