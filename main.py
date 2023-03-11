@@ -1,4 +1,3 @@
-import json
 from tkinter import *
 from tkinter import messagebox
 from random import choice, randint, shuffle
@@ -6,6 +5,8 @@ import pyperclip
 import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
+
+
 def generate_password():
     letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
@@ -23,6 +24,8 @@ def generate_password():
     pyperclip.copy(password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+
+
 def data_save():
     web = inp_web.get()
     email = inp_user.get()
@@ -36,15 +39,27 @@ def data_save():
     if not web or not email or not password:
         messagebox.showinfo(title="Oops", message="Please don't leave any fields empty!")
     else:
-        with open("data.json", 'r') as file:
-            # json.dump(new_data, file, indent=4)
-            data = json.load(file)
-            print(data)
+        try:
+            with open("data.json", 'r') as file:
+                data = json.load(file)
+
+        except FileNotFoundError:
+            with open("data.json", 'w') as file:
+                json.dump(new_data, file, indent=4)
+
+        else:
+            data.update(new_data)
+
+            with open("data.json", 'w') as file:
+                json.dump(data, file, indent=4)
+
+        finally:
             inp_psw.delete(0, END)
             inp_web.delete(0, END)
 
-
 # ---------------------------- UI SETUP ------------------------------- #
+
+
 window = Tk()
 window.title("Password")
 window.config(pady=50, padx=50)
