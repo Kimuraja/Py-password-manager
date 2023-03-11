@@ -6,19 +6,17 @@ import json
 
 # ---------------------------- PASSWORD GENERATOR ------------------------------- #
 
-
+#Password Generator Project
 def generate_password():
-    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
-               'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
-               'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
-    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '?', '-', '_', '=', '{', '}', '[', ']']
+    symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+']
 
-    let = [choice(letters) for _ in range(randint(8, 10))]
-    sym = [choice(symbols) for _ in range(randint(2, 4))]
-    num = [choice(numbers) for _ in range(randint(2, 4))]
+    password_letters = [choice(letters) for _ in range(randint(8, 10))]
+    password_symbols = [choice(symbols) for _ in range(randint(2, 4))]
+    password_numbers = [choice(numbers) for _ in range(randint(2, 4))]
 
-    password_list = let + sym + num
+    password_list = password_letters + password_symbols + password_numbers
     shuffle(password_list)
 
     password = "".join(password_list)
@@ -26,21 +24,20 @@ def generate_password():
     pyperclip.copy(password)
 
 # ---------------------------- SAVE PASSWORD ------------------------------- #
+def save():
 
-
-def data_save():
-    web = inp_web.get()
+    website = inp_web.get()
     email = inp_user.get()
     password = inp_psw.get()
     new_data = {
-        web: {
+        website: {
             "email": email,
             "password": password,
         }
     }
 
-    if not web or not email or not password:
-        messagebox.showinfo(title="Oops", message="Please don't leave any fields empty!")
+    if len(website) == 0 or len(password) == 0:
+        messagebox.showinfo(title="Error", message="Please make sure you haven't left any fields empty.")
     else:
         try:
             with open("data.json", "r") as file:
@@ -55,16 +52,17 @@ def data_save():
                 json.dump(data, file, indent=4)
 
         finally:
-            inp_psw.delete(0, END)
             inp_web.delete(0, END)
+            inp_psw.delete(0, END)
 
 
 # ---------------------------- FIND PASSWORD ------------------------------- #
 def find_password():
     website = inp_web.get()
     try:
-        with open("data.json") as file:
-            data = json.load(file)
+        with open("data.json") as data_file:
+            data = json.load(data_file)
+
     except FileNotFoundError:
         messagebox.showinfo(title="Error", message="No Data File Found.")
     else:
@@ -74,7 +72,6 @@ def find_password():
             messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
         else:
             messagebox.showinfo(title="Error", message=f"No details for {website} exists.")
-
 
 # ---------------------------- UI SETUP ------------------------------- #
 
@@ -96,7 +93,7 @@ inp_web = Entry(width=21)
 inp_web.grid(row=1, column=1)
 inp_web.focus()
 
-web_button = Button(text="Search", command=find_password, width=14)
+web_button = Button(text="Search", width=14)
 web_button.grid(row=1, column=2)
 # ----------USER----------#
 user_txt = Label(text="Email/Username:")
@@ -117,7 +114,7 @@ psw_button = Button(text="Generate Password", command=generate_password)
 psw_button.grid(row=3, column=2)
 
 # ----------Add Button----------#
-add_button = Button(text="Add", width=36, command=data_save)
+add_button = Button(text="Add", width=36, command=save)
 add_button.grid(row=4, column=1, columnspan=2)
 
 

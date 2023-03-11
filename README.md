@@ -8,8 +8,8 @@ Make sure that the "data.<a href="https://www.w3schools.com/python/python_json.a
 <a href=https://pypi.org/project/pyperclip/>Pyperclip</a> is a cross-platform Python module for copy and paste clipboard functions. It works with Python 2 and 3.
 
 <p>
--> <a>Install on Windows: pip install pyperclip</a><br>
--> <a>Install on Linux/macOS: pip3 install pyperclip</a>
+-> <b>Install on Windows:</b> pip install pyperclip<br>
+-> <b>Install on Linux/macOS:</b> pip3 install pyperclip
 </p>
 
 
