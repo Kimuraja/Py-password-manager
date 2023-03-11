@@ -8,7 +8,9 @@ import json
 
 
 def generate_password():
-    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+    letters = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u',
+               'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P',
+               'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
     numbers = ['0', '1', '2', '3', '4', '5', '6', '7', '8', '9']
     symbols = ['!', '#', '$', '%', '&', '(', ')', '*', '+', '?', '-', '_', '=', '{', '}', '[', ']']
 
@@ -30,9 +32,10 @@ def data_save():
     web = inp_web.get()
     email = inp_user.get()
     password = inp_psw.get()
-    new_data = {web: {
-        "email": email,
-        "password": password,
+    new_data = {
+        web: {
+            "email": email,
+            "password": password,
         }
     }
 
@@ -57,6 +60,25 @@ def data_save():
             inp_psw.delete(0, END)
             inp_web.delete(0, END)
 
+
+# ---------------------------- FIND PASSWORD ------------------------------- #
+def find_password():
+    web_data = inp_web.get()
+    try:
+        with open("data.json") as file:
+            data = json.load(file)
+
+    except FileNotFoundError:
+        messagebox.showinfo(title="Error", message="No Data File Found")
+
+    else:
+        if web_data in data:
+            email = data[web_data]["email"]
+            password = data[web_data]["password"]
+            messagebox.showinfo(title=web_data, message=f"This is your login: {email}\n" 
+                                                        f"\nThis is your password: {password}")
+        else:
+            messagebox.showinfo(title="Error", message=f"No details for {web_data} exists.")
 # ---------------------------- UI SETUP ------------------------------- #
 
 
@@ -71,23 +93,25 @@ canvas.grid(column=1, row=0)
 
 # ----------WEBSITE----------#
 web_txt = Label(text="Website:")
-web_txt.grid(column=0, row=1)
+web_txt.grid(row=1, column=0)
 
-inp_web = Entry(width=38)
-inp_web.grid(row=1, column=1, columnspan=2)
+inp_web = Entry(width=21)
+inp_web.grid(row=1, column=1)
 inp_web.focus()
 
+web_button = Button(text="Search", command=find_password, width=14)
+web_button.grid(row=1, column=2)
 # ----------USER----------#
 user_txt = Label(text="Email/Username:")
-user_txt.grid(column=0, row=2)
+user_txt.grid(row=2, column=0)
 
-inp_user = Entry(width=38)
+inp_user = Entry(width=39)
 inp_user.grid(row=2, column=1, columnspan=2)
 inp_user.insert(END, "your.email@gmail.com")
 
 # ----------Password----------#
 psw_txt = Label(text="Password:")
-psw_txt.grid(column=0, row=3)
+psw_txt.grid(row=3, column=0)
 
 inp_psw = Entry(width=21)
 inp_psw.grid(row=3, column=1)
