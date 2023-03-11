@@ -43,17 +43,15 @@ def data_save():
         messagebox.showinfo(title="Oops", message="Please don't leave any fields empty!")
     else:
         try:
-            with open("data.json", 'r') as file:
+            with open("data.json", "r") as file:
                 data = json.load(file)
 
         except FileNotFoundError:
-            with open("data.json", 'w') as file:
+            with open("data.json", "w") as file:
                 json.dump(new_data, file, indent=4)
-
         else:
             data.update(new_data)
-
-            with open("data.json", 'w') as file:
+            with open("data.json", "w") as file:
                 json.dump(data, file, indent=4)
 
         finally:
@@ -63,22 +61,21 @@ def data_save():
 
 # ---------------------------- FIND PASSWORD ------------------------------- #
 def find_password():
-    web_data = inp_web.get()
+    website = inp_web.get()
     try:
         with open("data.json") as file:
             data = json.load(file)
-
     except FileNotFoundError:
-        messagebox.showinfo(title="Error", message="No Data File Found")
-
+        messagebox.showinfo(title="Error", message="No Data File Found.")
     else:
-        if web_data in data:
-            email = data[web_data]["email"]
-            password = data[web_data]["password"]
-            messagebox.showinfo(title=web_data, message=f"This is your login: {email}\n" 
-                                                        f"\nThis is your password: {password}")
+        if website in data:
+            email = data[website]["email"]
+            password = data[website]["password"]
+            messagebox.showinfo(title=website, message=f"Email: {email}\nPassword: {password}")
         else:
-            messagebox.showinfo(title="Error", message=f"No details for {web_data} exists.")
+            messagebox.showinfo(title="Error", message=f"No details for {website} exists.")
+
+
 # ---------------------------- UI SETUP ------------------------------- #
 
 
